@@ -1,9 +1,10 @@
-import React from 'react'
 
 const App = () => {
   return (
-    <div>
-      <h1>PulseMetrics</h1>
+     <div className="min-h-screen flex items-center justify-center bg-gray-950 text-white">
+      <h1 className="text-4xl text-gre font-bold tracking-tight">
+        PulseMetrics
+      </h1>
     </div>
   )
 }
