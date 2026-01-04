@@ -1,16 +1,74 @@
-# React + Vite
+# PulseMetrics 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**PulseMetrics** is a frontend-only analytics dashboard built with **React**, **Vite**, **Tailwind CSS**, and **React Router DOM**.  
+This project is designed to be scalable, maintainable, and production-ready with a clean folder structure and Git workflow.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## React Compiler
+- [Demo](#demo)  
+- [Tech Stack](#tech-stack)  
+- [Project Structure](#project-structure)  
+- [Setup & Installation](#setup--installation)  
+- [Folder Structure](#folder-structure)  
+- [Routing](#routing)  
+- [Git Flow](#git-flow)  
+- [Next Steps](#next-steps)  
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Demo
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+*Currently in development – this is the initial setup with routing and Tailwind styling.*
+
+---
+
+## Tech Stack
+
+- **React (JavaScript)** – Frontend framework  
+- **Vite** – Build tool & dev server  
+- **Tailwind CSS** – Utility-first CSS framework  
+- **React Router DOM** – Routing library  
+
+---
+
+## Project Structure
+
+```text
+src/
+├── app/            # Redux store (future)
+├── components/     # Reusable UI components
+├── features/       # Redux feature slices (future)
+├── pages/          # Route-level pages (Home, Analytics, Settings)
+├── services/       # API handling (future)
+├── hooks/          # Custom hooks
+├── layouts/        # Layout components (MainLayout)
+├── utils/          # Helpers & constants
+├── styles/         # Global styles
+# PulseMetrics
+
+##  Setup & Installation
+
+Follow these steps to run **PulseMetrics** locally:
+
+### Clone the repository
+```bash
+git clone <your-repo-url>
+cd pulsemetrics
+```
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Run the development server
+```bash
+npm run dev
+```
+
+### License
+This project is MIT licensed.
+Feel free to use and contribute!
+---
