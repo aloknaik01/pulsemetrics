@@ -1,17 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchDashboardMetrics } from "./dashboardThunks";
+import {
+  fetchDashboardMetrics,
+  fetchPopularRepos,
+} from "./dashboardThunks";
+
 
 const initialState = {
   metrics: null,
-  status: "idle", // idle | loading | succeeded | failed
+
+  popularRepos: {
+    data: [],
+    status: "idle",
+    error: null,
+  },
+
+  status: "idle",
   error: null,
 };
+
 
 const dashboardSlice = createSlice({
   name: "dashboard",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // DASHBOARD METRICS
     builder
       // pending
       .addCase(fetchDashboardMetrics.pending, (state) => {
@@ -27,7 +40,21 @@ const dashboardSlice = createSlice({
       .addCase(fetchDashboardMetrics.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
-      });
+      })
+
+      // POPULAR REPOSITORIES
+    .addCase(fetchPopularRepos.pending, (state) => {
+      state.popularRepos.status = "loading";
+      state.popularRepos.error = null;
+    })
+    .addCase(fetchPopularRepos.fulfilled, (state, action) => {
+      state.popularRepos.status = "succeeded";
+      state.popularRepos.data = action.payload;
+    })
+    .addCase(fetchPopularRepos.rejected, (state, action) => {
+      state.popularRepos.status = "failed";
+      state.popularRepos.error = action.payload;
+    });
   },
 });
 

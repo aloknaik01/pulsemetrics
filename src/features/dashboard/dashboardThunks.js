@@ -26,3 +26,29 @@ export const fetchDashboardMetrics = createAsyncThunk(
     }
   }
 );
+
+export const fetchPopularRepos = createAsyncThunk(
+  'dashboard/fetchPopularRepos',
+  async (username) => {
+    const reposRes = await fetch(
+      `https://api.github.com/users/${username}/repos?per_page=100`
+    );
+    const repos = await reposRes.json();
+
+    const sorted = repos
+      .sort((a, b) => b.stargazers_count - a.stargazers_count)
+      .slice(0, 10);
+
+    return sorted.map(repo => ({
+      id: repo.id,
+      name: repo.name,
+      stars: repo.stargazers_count,
+      forks: repo.forks_count,
+      watchers: repo.watchers_count,
+      issues: repo.open_issues_count,
+      updatedAt: repo.updated_at,
+      owner: repo.owner.login
+    }));
+  }
+);
+
