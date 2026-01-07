@@ -62,6 +62,14 @@ const sortedRepos = useMemo(() => {
     onChange={(e) => setSearch(e.target.value)}
     className="border rounded-md px-3 py-1 text-sm"
   />
+  <button
+  onClick={() =>
+    setSortOrder(prev => (prev === "asc" ? "desc" : "asc"))
+  }
+  className="ml-3 text-sm border px-2 py-1 rounded"
+>
+  {sortOrder === "asc" ? "↑ Asc" : "↓ Desc"}
+</button>
 </div>
         <table className="min-w-full text-sm">
           <thead className="bg-gray-50 text-gray-600">
