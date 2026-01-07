@@ -8,12 +8,27 @@ export default function PopularReposTable() {
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState("");
+  const [sortKey, setSortKey] = useState("stars");
+  const [sortOrder, setSortOrder] = useState("desc");
+
 
 const filteredRepos = useMemo(() => {
   return data.filter(repo =>
     repo.name.toLowerCase().includes(search.toLowerCase())
   );
 }, [data, search]);
+
+
+const sortedRepos = useMemo(() => {
+  const sorted = [...filteredRepos].sort((a, b) => {
+    if (sortOrder === "asc") {
+      return a[sortKey] - b[sortKey];
+    }
+    return b[sortKey] - a[sortKey];
+  });
+
+  return sorted;
+}, [filteredRepos, sortKey, sortOrder]);
 
 
   const { data, status } = useSelector(
@@ -52,17 +67,17 @@ const filteredRepos = useMemo(() => {
           <thead className="bg-gray-50 text-gray-600">
             <tr>
               <th className="px-4 py-3 text-left">Repo</th>
-              <th className="px-4 py-3">Stars</th>
-              <th className="px-4 py-3">Forks</th>
-              <th className="px-4 py-3">Watchers</th>
-              <th className="px-4 py-3">Issues</th>
-              <th className="px-4 py-3">Updated</th>
-              <th className="px-4 py-3">Action</th>
+              <th className="px-4 py-3" onClick={() => setSortKey("stars")} >Stars</th>
+              <th className="px-4 py-3" onClick={() => setSortKey("forks")}>Forks</th>
+              <th className="px-4 py-3" onClick={() => setSortKey("watchers")}>Watchers</th>
+              <th className="px-4 py-3" onClick={() => setSortKey("issues")}>Issues</th>
+              <th className="px-4 py-3" onClick={() => setSortKey("updated")}>Updated</th>
+              <th className="px-4 py-3" onClick={() => setSortKey("action")}>Action</th>
             </tr>
           </thead>
 
           <tbody>
-            {filteredRepos.map(repo => (
+            {sortedRepos.map(repo => (
               <tr
                 key={repo.id}
                 className="border-t hover:bg-gray-50 transition"
@@ -70,7 +85,7 @@ const filteredRepos = useMemo(() => {
                 <td className="px-4 py-3 font-medium">
                   {repo.name}
                 </td>
-                <td className="px-4 py-3 text-center">{repo.stars}</td>
+                <td className="px-4 py-3 text-center"  >{repo.stars}</td>
                 <td className="px-4 py-3 text-center">{repo.forks}</td>
                 <td className="px-4 py-3 text-center">{repo.watchers}</td>
                 <td className="px-4 py-3 text-center">{repo.issues}</td>
