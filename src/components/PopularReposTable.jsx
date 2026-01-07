@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect , useState, useMemo} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
 import { fetchPopularRepos } from "../features/dashboard/dashboardThunks";
@@ -6,6 +6,16 @@ import { fetchPopularRepos } from "../features/dashboard/dashboardThunks";
 
 export default function PopularReposTable() {
   const dispatch = useDispatch();
+
+  const [search, setSearch] = useState("");
+
+const filteredRepos = useMemo(() => {
+  return data.filter(repo =>
+    repo.name.toLowerCase().includes(search.toLowerCase())
+  );
+}, [data, search]);
+
+
   const { data, status } = useSelector(
     state => state.dashboard.popularRepos
   );
@@ -27,6 +37,17 @@ export default function PopularReposTable() {
       </div>
 
       <div className="overflow-x-auto">
+        <div className="p-4 border-b flex justify-between items-center">
+  <h2 className="font-semibold">Most Popular Repositories</h2>
+
+  <input
+    type="text"
+    placeholder="Search repo..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className="border rounded-md px-3 py-1 text-sm"
+  />
+</div>
         <table className="min-w-full text-sm">
           <thead className="bg-gray-50 text-gray-600">
             <tr>
@@ -41,7 +62,7 @@ export default function PopularReposTable() {
           </thead>
 
           <tbody>
-            {data.map(repo => (
+            {filteredRepos.map(repo => (
               <tr
                 key={repo.id}
                 className="border-t hover:bg-gray-50 transition"
