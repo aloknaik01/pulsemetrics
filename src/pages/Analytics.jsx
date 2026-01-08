@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPopularRepos } from "../features/dashboard/dashboardThunks";
 import LineChart from "../components/charts/LineChart";
+import TimeRangeFilter from "../components/filters/TimeRangeFilter";
 
 const Analytics = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,10 @@ const Analytics = () => {
 
   return (
     <div className="p-6 space-y-8">
-      <h1 className="text-3xl font-bold">Analytics</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Analytics</h1>
+        <TimeRangeFilter />
+      </div>
 
       <div className="bg-white p-6 rounded-xl shadow">
         <LineChart
