@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   theme: "dark",
   sidebarOpen: true,
+  timeRange: "30d",
 };
 
 const uiSlice = createSlice({
@@ -15,8 +16,11 @@ const uiSlice = createSlice({
     setTheme(state, action) {
       state.theme = action.payload;
     },
+    setTimeRange: (state, action) => {
+      state.timeRange = action.payload;
+    },
   },
 });
 
-export const { toggleSidebar, setTheme } = uiSlice.actions;
+export const { toggleSidebar, setTheme, setTimeRange } = uiSlice.actions;
 export default uiSlice.reducer;
