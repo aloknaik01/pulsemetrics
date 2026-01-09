@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPopularRepos } from "../features/dashboard/dashboardThunks";
 import LineChart from "../components/charts/LineChart";
 import TimeRangeFilter from "../components/filters/TimeRangeFilter";
+import LanguageDoughnutChart from "../components/charts/LanguageDoughnutChart";
 
 const Analytics = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,10 @@ const Analytics = () => {
           labels={labels}
           values={values}
         />
+      </div>
+
+       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <LanguageDoughnutChart />
       </div>
     </div>
   );
