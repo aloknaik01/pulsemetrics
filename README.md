@@ -72,3 +72,30 @@ npm run dev
 This project is MIT licensed.
 Feel free to use and contribute!
 ---
+---
+
+## Redux Toolkit Integration
+
+PulseMetrics uses **Redux Toolkit** for predictable and scalable state management.
+
+### Store Setup
+- Centralized Redux store using `configureStore`
+- Feature-based slices for separation of concerns
+
+### Slices Implemented
+
+#### Dashboard Slice
+Manages analytics data fetched from GitHub APIs.
+
+```js
+dashboard: {
+  metrics: null,
+  popularRepos: {
+    data: [],
+    status: "idle",
+    error: null
+  },
+  status: "idle",
+  error: null
+}
+```
