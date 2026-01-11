@@ -1,7 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-
-
 export const selectPopularRepos = (state) =>
   state.dashboard.popularRepos.data;
 
