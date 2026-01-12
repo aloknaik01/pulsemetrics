@@ -36,16 +36,18 @@ const StarsForksBarChart = () => {
 
   const data = {
     labels: repos.map((repo) => repo.name),
-    datasets: [
-      {
-        label: "Stars",
-        data: repos.map((repo) => repo.stars),
-      },
-      {
-        label: "Forks",
-        data: repos.map((repo) => repo.forks),
-      },
-    ],
+   datasets: [
+  {
+    label: "Stars",
+    data: repos.map((repo) => repo.stars),
+    backgroundColor: "rgba(59, 130, 246, 0.7)", 
+  },
+  {
+    label: "Forks",
+    data: repos.map((repo) => repo.forks),
+    backgroundColor: "rgba(34, 197, 94, 0.7)",
+  },
+]
   };
 
   const options = {
