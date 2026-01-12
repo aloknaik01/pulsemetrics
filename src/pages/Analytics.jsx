@@ -20,9 +20,6 @@ const Analytics = () => {
     }
   }, [dispatch, status]);
 
-  if (status === "loading") {
-    return <div className="p-6">Loading analytics...</div>;
-  }
 
   if (status === "failed") {
     return <div className="p-6 text-red-600">{error}</div>;
@@ -38,15 +35,21 @@ const Analytics = () => {
         <TimeRangeFilter />
       </div>
 
+      {/* Line Chart Section */}
       <div className="bg-white p-6 rounded-xl shadow">
-        <LineChart
-          title="Top Repositories by Stars"
-          labels={labels}
-          values={values}
-        />
+        {status === "loading" ? (
+          <ChartSkeleton />
+        ) : (
+          <LineChart
+            title="Top Repositories by Stars"
+            labels={labels}
+            values={values}
+          />
+        )}
       </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Doughnut + Bar Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {status === "loading" ? (
           <>
             <ChartSkeleton />
