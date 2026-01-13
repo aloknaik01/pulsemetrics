@@ -6,6 +6,7 @@ import TimeRangeFilter from "../components/filters/TimeRangeFilter";
 import LanguageDoughnutChart from "../components/charts/LanguageDoughnutChart";
 import StarsForksBarChart from "../components/charts/StarsForksBarChart";
 import ChartSkeleton from "../components/skeletons/ChartSkeleton";
+import ApiErrorMessage from "../components/errors/ApiErrorMessage";
 
 const Analytics = () => {
   const dispatch = useDispatch();
@@ -21,9 +22,13 @@ const Analytics = () => {
   }, [dispatch, status]);
 
 
-  if (status === "failed") {
-    return <div className="p-6 text-red-600">{error}</div>;
-  }
+ if (status === "failed") {
+  return (
+    <div className="p-6">
+      <ApiErrorMessage message={error} />
+    </div>
+  );
+}
 
   const labels = repos.map((repo) => repo.name);
   const values = repos.map((repo) => repo.stars);
@@ -47,6 +52,7 @@ const Analytics = () => {
           />
         )}
       </div>
+
 
       {/* Doughnut + Bar Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
