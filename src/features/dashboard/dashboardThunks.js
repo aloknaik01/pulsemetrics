@@ -29,26 +29,42 @@ export const fetchDashboardMetrics = createAsyncThunk(
 
 export const fetchPopularRepos = createAsyncThunk(
   'dashboard/fetchPopularRepos',
-  async (username) => {
-    const reposRes = await fetch(
-      `https://api.github.com/users/${username}/repos?per_page=100`
-    );
-    const repos = await reposRes.json();
+  async (username, { rejectWithValue }) => {
+    try {
+      const reposRes = await fetch(
+        `https://api.github.com/users/${username}/repos?per_page=100`
+      );
 
-    const sorted = repos
-      .sort((a, b) => b.stargazers_count - a.stargazers_count)
-      .slice(0, 10);
+      if (!reposRes.ok) {
+        if (reposRes.status === 403) {
+          // Rate limit hit
+          return rejectWithValue("GitHub API rate limit exceeded. Try again later.");
+        }
+        throw new Error("Failed to fetch repositories");
+      }
 
-    return sorted.map(repo => ({
-      id: repo.id,
-      name: repo.name,
-      stars: repo.stargazers_count,
-      forks: repo.forks_count,
-      watchers: repo.watchers_count,
-      issues: repo.open_issues_count,
-      updatedAt: repo.updated_at,
-      owner: repo.owner.login
-    }));
+      const repos = await reposRes.json();
+
+      const sorted = repos
+        .sort((a, b) => b.stargazers_count - a.stargazers_count)
+        .slice(0, 10);
+
+      return sorted.map(repo => ({
+        id: repo.id,
+        name: repo.name,
+        stars: repo.stargazers_count,
+        forks: repo.forks_count,
+        watchers: repo.watchers_count,
+        issues: repo.open_issues_count,
+        updatedAt: repo.updated_at,
+        owner: repo.owner.login,
+        language: repo.language,
+      }));
+
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
 );
+
 
