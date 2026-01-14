@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchDashboardMetrics,
   fetchPopularRepos,
+  fetchRepoOverview,
 } from "./dashboardThunks";
 
 
@@ -13,7 +14,7 @@ const initialState = {
     status: "idle",
     error: null,
   },
-
+  overview: null,
   status: "idle",
   error: null,
 };
@@ -54,7 +55,19 @@ const dashboardSlice = createSlice({
     .addCase(fetchPopularRepos.rejected, (state, action) => {
       state.popularRepos.status = "failed";
       state.popularRepos.error = action.payload;
-    });
+    })
+// Repo Overview
+    .addCase(fetchRepoOverview.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchRepoOverview.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.overview = action.payload;
+      })
+      .addCase(fetchRepoOverview.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
   },
 });
 

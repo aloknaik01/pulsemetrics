@@ -67,4 +67,14 @@ export const fetchPopularRepos = createAsyncThunk(
   }
 );
 
+export const fetchRepoOverview = createAsyncThunk(
+  "dashboard/fetchRepoOverview",
+  async ({ owner, repo }) => {
+    const res = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}`
+    );
+    if (!res.ok) throw new Error("Failed to fetch repo");
+    return res.json();
+  }
+);
 
