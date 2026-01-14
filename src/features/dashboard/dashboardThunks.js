@@ -21,6 +21,7 @@ export const fetchDashboardMetrics = createAsyncThunk(
         issues: data.open_issues_count,
         watchers: data.subscribers_count,
       };
+      
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -28,7 +29,7 @@ export const fetchDashboardMetrics = createAsyncThunk(
 );
 
 export const fetchPopularRepos = createAsyncThunk(
-  'dashboard/fetchPopularRepos',
+  'dashboard/fetchPopularRepos',    
   async (username, { rejectWithValue }) => {
     try {
       const reposRes = await fetch(
@@ -66,5 +67,3 @@ export const fetchPopularRepos = createAsyncThunk(
     }
   }
 );
-
-
