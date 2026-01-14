@@ -3,7 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   theme: "dark",
   sidebarOpen: true,
-  timeRange: "30d",
+  timeRange: "7d",
+  selectedRepo: {
+    owner: "facebook",
+    repo: "react"
+  }
 };
 
 const uiSlice = createSlice({
@@ -19,8 +23,11 @@ const uiSlice = createSlice({
     setTimeRange: (state, action) => {
       state.timeRange = action.payload;
     },
+    setSelectedRepo(state, action) {
+      state.selectedRepo = action.payload;
+    }
   },
 });
 
-export const { toggleSidebar, setTheme, setTimeRange } = uiSlice.actions;
+export const { toggleSidebar, setTheme, setTimeRange, setSelectedRepo  } = uiSlice.actions;
 export default uiSlice.reducer;
