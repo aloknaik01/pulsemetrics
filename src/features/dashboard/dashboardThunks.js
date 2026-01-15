@@ -69,12 +69,18 @@ export const fetchPopularRepos = createAsyncThunk(
 
 export const fetchRepoOverview = createAsyncThunk(
   "dashboard/fetchRepoOverview",
-  async ({ owner, repo }) => {
-    const res = await fetch(
+  async ({ owner, repo }, { rejectWithValue }) => {
+    try {
+      const res = await fetch(
       `https://api.github.com/repos/${owner}/${repo}`
     );
-    if (!res.ok) throw new Error("Failed to fetch repo");
+    if (!res.ok)  throw new Error("Repo not found"); 
+    toast.success(`Loaded ${owner}/${repo}`);
     return res.json();
+    } catch (error) {
+        toast.error(err.message);
+      return rejectWithValue(err.message);
+    }
   }
 );
 
