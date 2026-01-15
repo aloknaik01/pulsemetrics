@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDashboardMetrics } from '../features/dashboard/dashboardThunks';
+import { fetchDashboardMetrics, fetchRepoOverview } from '../features/dashboard/dashboardThunks';
 import BarChart from './charts/BarChart';
 import RepoSelector from './RepoSelector';
 
