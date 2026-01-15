@@ -99,3 +99,59 @@ dashboard: {
   error: null
 }
 ```
+## ✨ Features
+
+### 🔹 GitHub Analytics
+- Repository KPIs:
+  - ⭐ Stars
+  - 🍴 Forks
+  - 🐞 Open Issues
+  - 👀 Watchers
+- Fetches data from GitHub Public API
+
+---
+
+### 📈 Charts & Visualizations (Chart.js)
+- **Line Chart** – Repository stars trend
+- **Bar Chart** – Stars vs Forks comparison
+- **Doughnut Chart** – Language distribution
+- Fully responsive charts
+
+---
+
+### ⏳ UX Enhancements
+- Skeleton loaders while fetching data
+- Graceful GitHub API **rate-limit (403)** handling
+- Reusable API error message component
+- Smooth loading & error states
+
+---
+
+### 🔍 Filters & State Management
+- Time-range filters:
+  - 7 days
+  - 30 days
+  - 90 days
+- Memoized selectors using `createSelector`
+- Separate UI & data state slices
+
+---
+
+### 🧱 Architecture Highlights
+- Feature-based folder structure
+- Redux Toolkit + async thunks
+- Clean separation of concerns
+- Scalable & maintainable codebase
+
+---
+
+## 🛠 Tech Stack
+
+- **React (Vite)**
+- **Redux Toolkit**
+- **React Router**
+- **Chart.js + react-chartjs-2**
+- **Tailwind CSS**
+- **GitHub Public API**
+
+---
