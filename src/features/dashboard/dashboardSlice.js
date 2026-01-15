@@ -5,68 +5,69 @@ import {
   fetchRepoOverview,
 } from "./dashboardThunks";
 
-
 const initialState = {
-  metrics: null,
+  metrics: {
+    data: null,
+    status: "idle",
+    error: null,
+  },
+
+  overview: {
+    data: null,
+    status: "idle",
+    error: null,
+  },
 
   popularRepos: {
     data: [],
     status: "idle",
     error: null,
   },
-  overview: null,
-  status: "idle",
-  error: null,
 };
-
 
 const dashboardSlice = createSlice({
   name: "dashboard",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // DASHBOARD METRICS
     builder
-      // pending
+      // DASHBOARD METRICS
       .addCase(fetchDashboardMetrics.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
+        state.metrics.status = "loading";
       })
-      // fulfilled
       .addCase(fetchDashboardMetrics.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.metrics = action.payload;
+        state.metrics.status = "succeeded";
+        state.metrics.data = action.payload;
       })
-      // rejected
       .addCase(fetchDashboardMetrics.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
+        state.metrics.status = "failed";
+        state.metrics.error = action.payload;
       })
 
-      // POPULAR REPOSITORIES
-    .addCase(fetchPopularRepos.pending, (state) => {
-      state.popularRepos.status = "loading";
-      state.popularRepos.error = null;
-    })
-    .addCase(fetchPopularRepos.fulfilled, (state, action) => {
-      state.popularRepos.status = "succeeded";
-      state.popularRepos.data = action.payload;
-    })
-    .addCase(fetchPopularRepos.rejected, (state, action) => {
-      state.popularRepos.status = "failed";
-      state.popularRepos.error = action.payload;
-    })
-// Repo Overview
-    .addCase(fetchRepoOverview.pending, (state) => {
-        state.status = "loading";
+      // POPULAR REPOS
+      .addCase(fetchPopularRepos.pending, (state) => {
+        state.popularRepos.status = "loading";
+      })
+      .addCase(fetchPopularRepos.fulfilled, (state, action) => {
+        state.popularRepos.status = "succeeded";
+        state.popularRepos.data = action.payload;
+      })
+      .addCase(fetchPopularRepos.rejected, (state, action) => {
+        state.popularRepos.status = "failed";
+        state.popularRepos.error = action.payload;
+      })
+
+      // REPO OVERVIEW
+      .addCase(fetchRepoOverview.pending, (state) => {
+        state.overview.status = "loading";
       })
       .addCase(fetchRepoOverview.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.overview = action.payload;
+        state.overview.status = "succeeded";
+        state.overview.data = action.payload;
       })
       .addCase(fetchRepoOverview.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
+        state.overview.status = "failed";
+        state.overview.error = action.payload;
       });
   },
 });

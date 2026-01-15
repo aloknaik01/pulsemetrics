@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
 import { fetchPopularRepos } from "../features/dashboard/dashboardThunks";
+import TableSkeleton from "./skeletons/TableSkeleton";
 
 export default function PopularReposTable() {
   const dispatch = useDispatch();
@@ -9,7 +10,7 @@ export default function PopularReposTable() {
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState("stars");
   const [sortOrder, setSortOrder] = useState("desc");
-   const { data, status } = useSelector((state) => state.dashboard.popularRepos);
+  const { data, status } = useSelector((state) => state.dashboard.popularRepos);
 
   const filteredRepos = useMemo(() => {
     return data.filter((repo) =>
@@ -28,16 +29,18 @@ export default function PopularReposTable() {
     return sorted;
   }, [filteredRepos, sortKey, sortOrder]);
 
- 
-
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchPopularRepos("facebook"));
+      dispatch(fetchPopularRepos("aloknaik01"));
     }
   }, [dispatch, status]);
 
   if (status === "loading") {
-    return <p className="mt-6">Loading repositories...</p>;
+    return <TableSkeleton />;
+  }
+  if (status === "failed") {
+    toast.error("Failed to load repositories");
+    return null;
   }
 
   return (
