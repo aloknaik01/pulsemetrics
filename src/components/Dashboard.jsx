@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchDashboardMetrics, fetchRepoOverview } from '../features/dashboard/dashboardThunks';
 import BarChart from './charts/BarChart';
 import RepoSelector from './RepoSelector';
+import DashboardSkeleton from './skeletons/DashboardSkeleton';
 
 const Dashboard = () => {
 
@@ -27,7 +28,7 @@ const Dashboard = () => {
   }, [owner, repo, dispatch]);
 
   if (status === "loading") {
-    return <div className="p-6">Loading dashboard data...</div>;
+    return <DashboardSkeleton />;
   }
 
   if (status === "failed") {

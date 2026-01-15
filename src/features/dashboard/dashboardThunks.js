@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 
 const REPO_URL = "https://api.github.com/repos/facebook/react";
 
