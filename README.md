@@ -154,4 +154,16 @@ dashboard: {
 - **Tailwind CSS**
 - **GitHub Public API**
 
----
+--- ## 🔌 GitHub APIs Used (FREE)
+
+All APIs used are **GitHub public APIs**.
+
+| Feature | API |
+|------|-----|
+| Repo Overview | `/repos/{owner}/{repo}` |
+| Popular Repos | `/search/repositories` |
+| Metrics | Stars, forks, issues, watchers |
+
+🔐 **Rate Limits**
+- Without token: `60 requests / hour`
+- With GitHub token: `5000 requests / hour` (recommended)
